@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stamptourproject.stamptour.aop.annotation.ValidAspect;
+import com.stamptourproject.stamptour.dto.auth.LoginReqDto;
 import com.stamptourproject.stamptour.dto.auth.SignupDto;
 import com.stamptourproject.stamptour.service.AuthenticationService;
 
@@ -29,5 +30,12 @@ public class AuthenticationController {
 		authenticationService.signup(signupDto);
 		return ResponseEntity.ok().body(true);
 	}
+	
+	@ValidAspect
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@Valid @RequestBody LoginReqDto loginReqDto, BindingResult bindingResult) {
+		return ResponseEntity.ok(authenticationService.signin(loginReqDto));
+	}
+	
 
 }
