@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import com.stamptourproject.stamptour.dto.auth.JwtRespDto;
 import com.stamptourproject.stamptour.dto.auth.LoginReqDto;
 import com.stamptourproject.stamptour.dto.auth.PrincipalRespDto;
-import com.stamptourproject.stamptour.dto.auth.SignupDto;
+import com.stamptourproject.stamptour.dto.auth.SignupReqDto;
+import com.stamptourproject.stamptour.entity.Authority;
 import com.stamptourproject.stamptour.entity.User;
 import com.stamptourproject.stamptour.exception.CustomException;
 import com.stamptourproject.stamptour.exception.ErrorMap;
@@ -36,10 +37,14 @@ public class AuthenticationService implements UserDetailsService {
 		}
 	}
 	
-	public void signup(SignupDto signupDto) {
+	public void signup(SignupReqDto signupDto) {
 		User userEntity = signupDto.toEntity();
 		
 		userRepository.saveUser(userEntity);
+		userRepository.saveAuthority(Authority.builder()
+				.userId(userEntity.getUserId())
+				.roleId(2)
+				.build());
 	}
 	
 	public JwtRespDto signin(LoginReqDto loginReqDto) {

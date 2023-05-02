@@ -9,7 +9,7 @@ import com.stamptourproject.stamptour.entity.User;
 import lombok.Data;
 
 @Data
-public class SignupDto {
+public class SignupReqDto {
 	
 	private String username;
 	

@@ -48,7 +48,12 @@
 	useGeneratedKeys="true"
 	keyProperty="userId">
 		insert into user_tb
-		values (0, #{username}, #{password}, #{name}, 0)
+		values (0, #{username}, #{password}, #{name})
+	</insert>
+	
+	<insert id="saveAuthority" parameterType="com.stamptourproject.stamptour.entity.Authority">
+		insert into authority_tb
+		values (0, #{userId}, #{roleId})
 	</insert>
 
 </mapper>
